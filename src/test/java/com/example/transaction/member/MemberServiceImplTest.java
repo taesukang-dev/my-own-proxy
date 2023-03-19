@@ -1,19 +1,22 @@
 package com.example.transaction.member;
 
+import com.example.transaction.myTransactional.member.MemberRepository;
+import com.example.transaction.myTransactional.member.MemberService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
 class MemberServiceImplTest {
-    @Autowired MemberService memberService;
-    @MockBean MemberRepository memberRepository;
+    @Autowired
+    MemberService memberService;
+    @MockBean
+    MemberRepository memberRepository;
 
     @Test
     void 트랜잭션_커밋() throws Exception {

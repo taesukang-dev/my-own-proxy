@@ -1,4 +1,4 @@
-package com.example.transaction.member;
+package com.example.transaction.myTransactional.member;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;

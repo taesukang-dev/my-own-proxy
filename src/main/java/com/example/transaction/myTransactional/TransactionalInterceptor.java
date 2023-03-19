@@ -1,6 +1,6 @@
 package com.example.transaction.myTransactional;
 
-import com.example.transaction.member.MemberServiceImpl;
+import com.example.transaction.myTransactional.member.MemberServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.transaction.PlatformTransactionManager;

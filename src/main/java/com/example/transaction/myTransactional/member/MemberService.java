@@ -1,4 +1,4 @@
-package com.example.transaction.member;
+package com.example.transaction.myTransactional.member;
 
 import com.example.transaction.myTransactional.MyTransactional;
 

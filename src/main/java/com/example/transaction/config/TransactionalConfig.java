@@ -1,8 +1,8 @@
 package com.example.transaction.config;
 
-import com.example.transaction.member.MemberRepository;
-import com.example.transaction.member.MemberService;
-import com.example.transaction.member.MemberServiceImpl;
+import com.example.transaction.myTransactional.member.MemberRepository;
+import com.example.transaction.myTransactional.member.MemberService;
+import com.example.transaction.myTransactional.member.MemberServiceImpl;
 import com.example.transaction.myTransactional.TransactionalInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
