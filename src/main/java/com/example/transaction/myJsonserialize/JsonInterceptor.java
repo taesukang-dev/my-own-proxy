@@ -1,5 +1,6 @@
 package com.example.transaction.myJsonserialize;
 
+import com.example.transaction.myJsonserialize.serializer.MyJsonSerializer;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.ObjectUtils;
 
@@ -9,7 +10,7 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-    public class JsonInterceptor implements InvocationHandler {
+public class JsonInterceptor implements InvocationHandler {
 
     private final MyJsonService target;
 
@@ -34,7 +35,7 @@ import java.lang.reflect.Method;
                     temp += fields[i].getName();
                     temp += " : ";
                     if (!annotation.using().getSimpleName().equals("None")) {
-                        Class<?> serializer = Class.forName("com.example.transaction.myJsonserialize." + annotation.using().getSimpleName());
+                        Class<?> serializer = Class.forName("com.example.transaction.myJsonserialize.serializer." + annotation.using().getSimpleName());
                         MyJsonSerializer<Serializable> myJsonSerializer = (MyJsonSerializer<Serializable>) serializer.getConstructor().newInstance();
                         temp += selectType(fields[i], myJsonSerializer, myJsonDomain);
                     } else temp += fields[i].get(myJsonDomain);

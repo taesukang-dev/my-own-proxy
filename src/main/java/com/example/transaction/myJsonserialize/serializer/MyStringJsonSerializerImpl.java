@@ -1,4 +1,4 @@
-package com.example.transaction.myJsonserialize;
+package com.example.transaction.myJsonserialize.serializer;
 
 public class MyStringJsonSerializerImpl implements MyJsonSerializer<String> {
     @Override

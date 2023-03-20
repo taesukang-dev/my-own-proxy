@@ -1,4 +1,4 @@
-package com.example.transaction.myJsonserialize;
+package com.example.transaction.myJsonserialize.serializer;
 
 import lombok.NoArgsConstructor;
 
