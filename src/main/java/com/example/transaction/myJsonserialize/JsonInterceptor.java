@@ -21,17 +21,25 @@ import java.lang.reflect.Method;
         String temp = "";
         temp += "{";
 
-        MyJsonDomain myJsonDomain = null;
         if (!ObjectUtils.isEmpty(args)) {
-            myJsonDomain = (MyJsonDomain) args[0];
+            MyJsonDomain myJsonDomain = (MyJsonDomain) args[0];
             Field[] fields = myJsonDomain.getClass().getDeclaredFields();
 
             for (int i = 0; i < fields.length; i++) {
                 fields[i].setAccessible(true);
                 if (AnnotationUtils.findAnnotation(fields[i], MyJsonSerialize.class) != null) {
+                    MyJsonSerialize annotation = AnnotationUtils.findAnnotation(fields[i], MyJsonSerialize.class);
                     temp += fields[i].getName();
                     temp += " : ";
-                    temp += fields[i].get(myJsonDomain);
+                    if (!annotation.using().getSimpleName().equals("None")) {
+                        Class<?> serializer = Class.forName("com.example.transaction.myJsonserialize." + annotation.using().getSimpleName());
+                        MyJsonSerializer<java.io.Serializable> myJsonSerializer = (MyJsonSerializer<java.io.Serializable>) serializer.getConstructor().newInstance();
+                        if (fields[i].getType().getSimpleName().equals("int")) temp += myJsonSerializer.serialize((Integer) fields[i].get(myJsonDomain));
+                        if (fields[i].getType().getSimpleName().equals("String")) temp += myJsonSerializer.serialize((String) fields[i].get(myJsonDomain));
+                        if (fields[i].getType().getSimpleName().equals("boolean"))temp += myJsonSerializer.serialize((boolean) fields[i].get(myJsonDomain));
+                    } else {
+                        temp += fields[i].get(myJsonDomain);
+                    }
                     if (i != (fields.length - 1)) {
                          temp += ", ";
                     }

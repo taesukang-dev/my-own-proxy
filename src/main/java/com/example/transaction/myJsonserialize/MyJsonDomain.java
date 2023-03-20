@@ -1,15 +1,14 @@
 package com.example.transaction.myJsonserialize;
 
-import lombok.Builder;
 import lombok.Getter;
 
 @Getter
 public class MyJsonDomain {
-    @MyJsonSerialize
+    @MyJsonSerialize(using = MyIntJsonSerializerImpl.class)
     private int id;
-    @MyJsonSerialize
+    @MyJsonSerialize(using = MyStringJsonSerializerImpl.class)
     private String name;
-    @MyJsonSerialize
+    @MyJsonSerialize(using = MyBooleanJsonSerializerImpl.class)
     private boolean isIt;
 
     public MyJsonDomain(int id, String name, boolean isIt) {
