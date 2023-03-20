@@ -37,15 +37,13 @@ import java.lang.reflect.Method;
                         if (fields[i].getType().getSimpleName().equals("int")) temp += myJsonSerializer.serialize((Integer) fields[i].get(myJsonDomain));
                         if (fields[i].getType().getSimpleName().equals("String")) temp += myJsonSerializer.serialize((String) fields[i].get(myJsonDomain));
                         if (fields[i].getType().getSimpleName().equals("boolean"))temp += myJsonSerializer.serialize((boolean) fields[i].get(myJsonDomain));
-                    } else {
-                        temp += fields[i].get(myJsonDomain);
-                    }
-                    if (i != (fields.length - 1)) {
-                         temp += ", ";
-                    }
+                    } else temp += fields[i].get(myJsonDomain);
+
+                    if (i != (fields.length - 1)) temp += ", ";
                 }
             }
         }
+
         temp += "}";
 
         Object invoke = null;
