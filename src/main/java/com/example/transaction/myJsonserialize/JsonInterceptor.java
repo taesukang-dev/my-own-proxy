@@ -3,6 +3,7 @@ package com.example.transaction.myJsonserialize;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.ObjectUtils;
 
+import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -33,10 +34,8 @@ import java.lang.reflect.Method;
                     temp += " : ";
                     if (!annotation.using().getSimpleName().equals("None")) {
                         Class<?> serializer = Class.forName("com.example.transaction.myJsonserialize." + annotation.using().getSimpleName());
-                        MyJsonSerializer<java.io.Serializable> myJsonSerializer = (MyJsonSerializer<java.io.Serializable>) serializer.getConstructor().newInstance();
-                        if (fields[i].getType().getSimpleName().equals("int")) temp += myJsonSerializer.serialize((Integer) fields[i].get(myJsonDomain));
-                        if (fields[i].getType().getSimpleName().equals("String")) temp += myJsonSerializer.serialize((String) fields[i].get(myJsonDomain));
-                        if (fields[i].getType().getSimpleName().equals("boolean"))temp += myJsonSerializer.serialize((boolean) fields[i].get(myJsonDomain));
+                        MyJsonSerializer<Serializable> myJsonSerializer = (MyJsonSerializer<Serializable>) serializer.getConstructor().newInstance();
+                        temp += selectType(fields[i], myJsonSerializer, myJsonDomain);
                     } else temp += fields[i].get(myJsonDomain);
 
                     if (i != (fields.length - 1)) temp += ", ";
@@ -50,5 +49,11 @@ import java.lang.reflect.Method;
         if (method.getReturnType() == String.class) invoke = temp;
         else invoke = method.invoke(target, args);
         return invoke;
+    }
+
+    private String selectType(Field field, MyJsonSerializer<Serializable> myJsonSerializer, MyJsonDomain myJsonDomain) throws IllegalAccessException {
+        if(field.getType().getSimpleName().equals("int")) return myJsonSerializer.serialize((Integer) field.get(myJsonDomain));
+        else if(field.getType().getSimpleName().equals("String")) return myJsonSerializer.serialize((String) field.get(myJsonDomain));
+        return myJsonSerializer.serialize((boolean) field.get(myJsonDomain));
     }
 }
