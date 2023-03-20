@@ -6,6 +6,7 @@ import org.springframework.util.ObjectUtils;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
     public class JsonInterceptor implements InvocationHandler {
@@ -41,11 +42,15 @@ import java.lang.reflect.Method;
                     if (i != (fields.length - 1)) temp += ", ";
                 }
             }
+
         }
 
         temp += "}";
+        return selectReturn(method, args, temp);
+    }
 
-        Object invoke = null;
+    private Object selectReturn(Method method, Object[] args, String temp) throws IllegalAccessException, InvocationTargetException {
+        Object invoke;
         if (method.getReturnType() == String.class) invoke = temp;
         else invoke = method.invoke(target, args);
         return invoke;
